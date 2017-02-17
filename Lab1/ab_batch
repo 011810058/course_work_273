@@ -1,0 +1,11 @@
+#!/bin/bash
+
+echo hello world
+
+ab -k -n 100 -c 5 10.65.11.189:8000/ &
+ab -k -n 100 -c 5 https://flipkart.com/ &
+ab -k -n 100 -c 5 https://jabong.com/ &
+ab -k -n 100 -c 5 makemytrip.com/ &
+ab -k -n 100 -c 5 yahoomail.com/ &
+ab -k -n 100 -c 5 adobe.com/ &
+ab -k -n 100 -c 5 www.panjabdigilib.org/ &

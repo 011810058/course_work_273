@@ -1,0 +1,132 @@
+Post /menu
+Ravinders-MacBook-Pro:~ Rkaur$ curl -H "Content-Type: application/json" -X POST -d '{     "menu_id": "menu1",     "store_name": "Pizza Hut",     "selection": [         "Cheese",         "Pepperoni"     ],     "size": [         "Slide", "Small", "Medium", "Large", "X-Large"     ],     "price": [         "3.50", "7.00", "10.00", "15.00", "20.00"     ],     "store_hours": {         "Mon": "10am-10pm",         "Tue": "10am-10pm",         "Wed": "10am-10pm",         "Thu": "10am-10pm",         "Fri": "10am-10pm",         "Sat": "11am-12pm",         "Sun": "11am-12pm"     } }' https://l9p7vgcip9.execute-api.us-west-2.amazonaws.com/v1/menu
+
+"OK"
+
+ 
+
+Get /menu/{menu-id}
+ 
+
+Ravinders-MacBook-Pro:~ Rkaur$ curl -X GET -H "Content-type: application/json" -H "Accept: application/json" https://l9p7vgcip9.execute-api.us-west-2.amazonaws.com/v1/menu/menu1
+
+{
+
+   "menu_id": menu1,
+
+   "store_name": Pizza Hut,
+
+   "selection": [
+
+   "Cheese",   "Pepperoni"       ],
+
+   "size": [
+
+   "Slide",   "Small",   "Medium",   "Large",   "X-Large"       ],
+
+   "price": [
+
+   "3.50",   "7.00",   "10.00",   "15.00",   "20.00"       ],
+
+   "store_hours":{
+
+   "Thu" : "10am-10pm",   "Tue" : "10am-10pm",   "Sat" : "11am-12pm",   "Wed" : "10am-10pm",   "Fri" : "10am-10pm",    "Mon" : "10am-10pm",   "Sun" : "11am-12pm"   }
+
+Ravinders-MacBook-Pro:~ Rkaur$
+
+ 
+
+PUT /menu/{menu-id}
+ 
+
+ 
+
+Ravinders-MacBook-Pro:~ Rkaur$ curl -H "Content-Type: application/json" -X PUT -d '{
+
+   "selection": [
+
+       "Cheese",
+
+       "Pepperoni",
+
+        "Vegetable"
+
+   ]  
+
+}' https://l9p7vgcip9.execute-api.us-west-2.amazonaws.com/v1/menu/menu1
+
+"OK"Ravinders-MacBook-Pro:~ Rkaur$
+
+ 
+
+ 4. Post /order
+
+Ravinders-MacBook-Pro:~ Rkaur$
+
+curl -H "Content-Type: application/json" -X POST -d '{       "menu_id": "menu1",     "order_id": "order1",     "customer_name": "John Smith",     "customer_email": "foobar@gmail.com" }' https://l9p7vgcip9.execute-api.us-west-2.amazonaws.com/v1/order
+
+{"message": "Hi {John Smith}, please choose one of these selection: 1. Cheese 2. Pepperoni 3. Vegetable "}
+
+ 
+
+ 5. PUT /order/{order-id}
+
+Ravinders-MacBook-Pro:~ Rkaur$ curl -H "Content-Type: application/json" -X PUT -d '{  
+
+   "input": "1",
+
+}' https://l9p7vgcip9.execute-api.us-west-2.amazonaws.com/v1/order/order1
+
+{"message": "Which size do you want? 1. Slide 2. Small 3. Medium 4. Large 5. X-Large "}
+
+ 6. PUT /order/{order-id}
+
+Ravinders-MacBook-Pro:~ Rkaur$ curl -H "Content-Type: application/json" -X PUT -d '{  
+
+   "input": "3",
+
+}' https://l9p7vgcip9.execute-api.us-west-2.amazonaws.com/v1/order/order1
+
+{"message": "Your order costs $10.00. We will email you when the order is ready. Thank you!"}
+
+ 7. GET /order/{order-id}
+
+Ravinders-MacBook-Pro:~ Rkaur$ curl -X GET -H "Content-type: application/json" -H "Accept: application/json" https://l9p7vgcip9.execute-api.us-west-2.amazonaws.com/v1/order/order1
+
+ 
+
+{  
+
+   "menu_id": "menu1",
+
+   "order_id": "order1",
+
+   "customer_name": "John Smith",
+
+   "customer_email": "foobar@gmail.com",
+
+   "order_status": "processing",
+
+   "order":
+
+       {
+
+               "selection": "Cheese",
+
+               "size": "Medium",
+
+                "costs": "10.00",
+
+               "order_time": "05-06-17@02:45:06"
+
+       }       }      
+
+Ravinders-MacBook-Pro:~ Rkaur$
+
+ 8. DELETE /menu/{menu-id}
+
+Ravinders-MacBook-Pro:~ Rkaur$ curl -H "Content-Type: application/json" -X DELETE https://l9p7vgcip9.execute-api.us-west-2.amazonaws.com/v1/menu/UUID-generated-by-client
+
+"OK"
+
+ 
